@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Twitter検索 (snscrape)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block head %}
+    {% endblock %}
+
+
+</head>
+<body>
+    <h1 class="title"><a href="{% url 'search:index' %}">Twitter検索 (snscrape)</a></h1>
+
+    <main class="container">
+        <form class="search_area" action="">
+
+            取得開始日：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
+            取得終了日：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
+            <!-- 検索数：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}"> -->
+            検索キーワード（Enter)<input class="form-control" type="text" name="search_word" autofocus value="{{ search_word }}">
+        </form>
+
+        {% block main %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
+

@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['hello-world-sudo.herokuapp.com']
+ALLOWED_HOSTS = ['hello-world-sudo.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +46,7 @@ ROOT_URLCONF = 'twittersearch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
