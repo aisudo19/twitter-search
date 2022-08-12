@@ -23,8 +23,9 @@
 
             取得開始日：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
             取得終了日：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
-            <!-- 検索数：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}"> -->
+            検索数：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}">
             検索キーワード（Enter)<input class="form-control" type="text" name="search_word" autofocus value="{{ search_word }}">
+            <button type="submit">検索</button>
         </form>
 
         {% block main %}

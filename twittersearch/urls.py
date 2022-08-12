@@ -5,6 +5,5 @@ from .views import helloworldfunc
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', helloworldfunc),
     path('', include("search.urls"),name="search"),
 ]
