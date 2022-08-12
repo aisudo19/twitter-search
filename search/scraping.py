@@ -25,7 +25,7 @@ def search_twitter(words, start_date, end_date, search_limit):
     else:
         for i,tweet in result_raw:
             # if i>5000 or tweet.conversationId == 1547777987650674689:
-            if i>int(search_limit):
+            if i>int(search_limit)-1:
                 break
             
             tweetUrl = "https://twitter.com/" + tweet.user.username + "/status/" + str(tweet.id)
