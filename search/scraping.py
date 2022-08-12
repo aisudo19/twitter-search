@@ -36,10 +36,10 @@ def search_twitter(words, start_date, end_date, search_limit):
             end_date_ = end_date.replace('-','')
 
             # もしツイート日付が20220803　で　指定の日付が20220801までだったら、コンティニュー
-            if tweet_date < start_date_:
+            if int(tweet_date) < int(start_date_):
                 continue
             # もしツイート日付が20220803　で　指定の日付が20220801までだったら、コンティニュー
-            if tweet_date > end_date_:
+            if int(tweet_date) > int(end_date_):
                 continue
 
             deleteEolContent = tweet.content.replace("\r\n", "")
