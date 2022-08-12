@@ -15,7 +15,7 @@ def search_twitter(words, start_date, end_date, search_limit):
         end_date = "99999999"
 
     if(search_limit == ""):
-        search_limit = 9
+        search_limit = 10
     result_raw = []
     tweets_list = []
     try:
