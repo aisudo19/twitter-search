@@ -9,10 +9,10 @@ HEADER      = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) G
 #グーグル検索から検索結果のリストを返す関数
 def search_twitter(words, start_date, end_date, search_limit):
     if start_date == "":
-        start_date = 0
+        start_date = "00000000"
 
     if end_date == "":
-        end_date = 99999999
+        end_date = "99999999"
 
     if(search_limit == ""):
         search_limit = 9
