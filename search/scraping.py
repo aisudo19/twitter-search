@@ -15,7 +15,8 @@ def search_twitter(words, since_date, until_date, search_limit):
     if(search_limit == ""):
         search_limit = 10
     if(since_date == ""):
-        since_date = datetime.date.today()        
+        since_date = datetime.date.today() - datetime.timedelta(days=31)
+        print("since_date:" + str(since_date))
     if(until_date == ""):
         until_date = datetime.date.today()
     result_raw = []
@@ -39,7 +40,7 @@ def search_twitter(words, since_date, until_date, search_limit):
             if int(tweet_date) < int(since_date):
                 # print("tweets_list" + len(tweets_list) + "件. tweet_date: " + str(tweet_date) + " since_date: " + str(since_date))
                 break
-            print("tweet_date: " + tweet_date + " since_date:" + since_date.replace("-", ""))
+            # print("tweet_date: " + tweet_date + " since_date:" + since_date.replace("-", ""))
             deleteEolContent = tweet.content.replace("\r\n", "")
             deleteEolContent = tweet.content.replace("\r", "")
             deleteEolContent = tweet.content.replace("\n", "")

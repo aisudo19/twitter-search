@@ -19,10 +19,9 @@
 
     <main class="container">
         <form class="search_area" action="">
-            <label>日付指定がなければ最新を取得し、検索件数指定がなければ10件取得します。</label><br>
-            取得開始日：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
-            取得終了日：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
-            検索数：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}">
+            取得開始日(取得開始日付指定がなければ１ヶ月前から取得)：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
+            取得終了日(取得終了日付指定がなければ今日までを取得)：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
+            検索数(検索件数指定がなければ10件取得)：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}">
             検索キーワード（Enter)<input class="form-control" type="text" name="search_word" autofocus value="{{ search_word }}">
             <button type="submit">検索</button>
         </form>
