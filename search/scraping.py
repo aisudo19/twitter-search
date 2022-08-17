@@ -6,51 +6,29 @@ TIMEOUT     = 10
 HEADER      = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'}
 
 #グーグル検索から検索結果のリストを返す関数
-def search_twitter(words, start_date, end_date, search_limit):
-    if start_date == "":
-        start_date = "00000000"
-
-    if end_date == "":
-        end_date = "99999999"
-
+def search_twitter(words, since_date, until_date, search_limit):
+    print("since: " + since_date + " until: " + until_date)
     if(search_limit == ""):
         search_limit = 10
     result_raw = []
     tweets_list = []
-    count = 0
+    query = " since:" + since_date + " until:" + until_date + " lang:ja -filter:links -filter:replies"
+    print(query)
     try:
-        result_raw = enumerate(sntwitter.TwitterSearchScraper(words).get_items())
-        print(result_raw)
+        result_raw = enumerate(sntwitter.TwitterSearchScraper(words + query).get_items())
     except Exception as e:
         print("ERROR_DOWNLOAD:{}".format(e))
     else:
         for i, tweet in result_raw:
-            # if i>int(search_limit)-1:
-            #     break
-            if i>5000:
+            if len(tweets_list)>int(search_limit)-1:
+                break
+            if len(tweets_list)>5000:
                 break
             
-            # print(tweet)
             tweetUrl = "https://twitter.com/" + tweet.user.username + "/status/" + str(tweet.id)
             date = tweet.date.strftime('%Y/%m/%d %H:%M:%S')
             tweet_date = tweet.date.strftime('%Y%m%d')
             
-            start_date_ = start_date.replace('-','')
-            end_date_ = end_date.replace('-','')
-            
-            if start_date_ > end_date_:
-                break
-
-            # もしツイート日付が20220803　で　指定の日付が20220801までだったら、コンティニュー
-            if int(tweet_date) < int(start_date_):
-                continue
-
-            if int(tweet_date) > int(end_date_):
-                continue
-            count += 1
-            print("count: " + str(count))
-            if count > int(search_limit)-1:
-                break
             deleteEolContent = tweet.content.replace("\r\n", "")
             deleteEolContent = tweet.content.replace("\r", "")
             deleteEolContent = tweet.content.replace("\n", "")
@@ -58,7 +36,6 @@ def search_twitter(words, start_date, end_date, search_limit):
             tweets_list.append([date, '@' + tweet.user.username,tweet.user.displayname, deleteEolContent,tweetUrl])
 
     return tweets_list
-
 
 def main():
 
