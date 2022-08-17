@@ -1,3 +1,5 @@
+from cmath import sin
+import datetime
 import sys
 import snscrape.modules.twitter as sntwitter
 import mimetypes
@@ -12,25 +14,32 @@ def search_twitter(words, since_date, until_date, search_limit):
     # print("since: " + since_date + " until: " + until_date)
     if(search_limit == ""):
         search_limit = 10
+    if(since_date == ""):
+        since_date = datetime.date.today()        
+    if(until_date == ""):
+        until_date = datetime.date.today()
     result_raw = []
     tweets_list = []
-    query = " since:" + since_date + "_00:00:00_JST until:" + until_date + "_23:59:59_JST lang:ja -filter:links -filter:replies"
+    query = " since:" + str(since_date) + "_00:00:00_JST until:" + str(until_date) + "_23:59:59_JST lang:ja -filter:links -filter:replies"
     # print(query)
     try:
         result_raw = enumerate(sntwitter.TwitterSearchScraper(words + query).get_items())
     except Exception as e:
         print("ERROR_DOWNLOAD:{}".format(e))
     else:
-        for i, tweet in result_raw:
-            if len(tweets_list)>int(search_limit)-1:
-                break
-            
+        for i, tweet in result_raw:            
             tweetUrl = "https://twitter.com/" + tweet.user.username + "/status/" + str(tweet.id)
             date = tweet.date.strftime('%Y/%m/%d %H:%M:%S')
             tweet_date = tweet.date.strftime('%Y%m%d')
-            print("tweet_date: " + tweet_date + " since_date:" + since_date.replace("-", ""))
-            if(tweet_date < since_date.replace("-", "")):
+            if len(tweets_list)>int(search_limit)-1:
+                # print("tweets_list" + len(tweets_list) + "件. tweet_date: " + str(tweet_date) + " since_date: " + str(since_date))
                 break
+            since_date = str(since_date).replace("-", "")
+            # print(type(since_date))
+            if int(tweet_date) < int(since_date):
+                # print("tweets_list" + len(tweets_list) + "件. tweet_date: " + str(tweet_date) + " since_date: " + str(since_date))
+                break
+            print("tweet_date: " + tweet_date + " since_date:" + since_date.replace("-", ""))
             deleteEolContent = tweet.content.replace("\r\n", "")
             deleteEolContent = tweet.content.replace("\r", "")
             deleteEolContent = tweet.content.replace("\n", "")
