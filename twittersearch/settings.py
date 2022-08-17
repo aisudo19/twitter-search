@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -15,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['hello-world-sudo.herokuapp.com','localhost','127.0.0.1']
 
@@ -109,17 +110,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# if DEBUG:
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static')
-# ]
-# else:
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-DJANGO_ROOT = dirname(dirname(abspath(__file__)))
-# Fetch the project_root
-PROJECT_ROOT = dirname(DJANGO_ROOT)
+if DEBUG:
+    STATIC_ROOT = None
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+# DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+# # Fetch the project_root
+# PROJECT_ROOT = dirname(DJANGO_ROOT)
+
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 MEDIA_URL='/media/'
 # Default primary key field type
