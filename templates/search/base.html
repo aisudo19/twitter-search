@@ -8,7 +8,6 @@
     <title>Twitter検索 (snscrape)</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block head %}
     {% endblock %}
@@ -20,7 +19,7 @@
 
     <main class="container">
         <form class="search_area" action="">
-
+            <label>日付指定がなければ最新を取得し、件数指定がなければ10件取得します</label><br>
             取得開始日：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
             取得終了日：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
             検索数：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}">
