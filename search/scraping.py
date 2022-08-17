@@ -5,7 +5,6 @@ SEARCH_NUM  = "100"
 TIMEOUT     = 10
 HEADER      = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'}
 
-
 #グーグル検索から検索結果のリストを返す関数
 def search_twitter(words, start_date, end_date, search_limit):
     if start_date == "":
@@ -18,30 +17,40 @@ def search_twitter(words, start_date, end_date, search_limit):
         search_limit = 10
     result_raw = []
     tweets_list = []
+    count = 0
     try:
         result_raw = enumerate(sntwitter.TwitterSearchScraper(words).get_items())
+        print(result_raw)
     except Exception as e:
         print("ERROR_DOWNLOAD:{}".format(e))
     else:
-        for i,tweet in result_raw:
-            # if i>5000 or tweet.conversationId == 1547777987650674689:
-            if i>int(search_limit)-1:
+        for i, tweet in result_raw:
+            # if i>int(search_limit)-1:
+            #     break
+            if i>5000:
                 break
             
+            # print(tweet)
             tweetUrl = "https://twitter.com/" + tweet.user.username + "/status/" + str(tweet.id)
             date = tweet.date.strftime('%Y/%m/%d %H:%M:%S')
             tweet_date = tweet.date.strftime('%Y%m%d')
             
             start_date_ = start_date.replace('-','')
             end_date_ = end_date.replace('-','')
+            
+            if start_date_ > end_date_:
+                break
 
             # もしツイート日付が20220803　で　指定の日付が20220801までだったら、コンティニュー
             if int(tweet_date) < int(start_date_):
                 continue
-            # もしツイート日付が20220803　で　指定の日付が20220801までだったら、コンティニュー
+
             if int(tweet_date) > int(end_date_):
                 continue
-
+            count += 1
+            print("count: " + str(count))
+            if count > int(search_limit)-1:
+                break
             deleteEolContent = tweet.content.replace("\r\n", "")
             deleteEolContent = tweet.content.replace("\r", "")
             deleteEolContent = tweet.content.replace("\n", "")
@@ -49,6 +58,7 @@ def search_twitter(words, start_date, end_date, search_limit):
             tweets_list.append([date, '@' + tweet.user.username,tweet.user.displayname, deleteEolContent,tweetUrl])
 
     return tweets_list
+
 
 def main():
 
