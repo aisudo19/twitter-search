@@ -1,5 +1,7 @@
 import sys
 import snscrape.modules.twitter as sntwitter
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 SEARCH_NUM  = "100"
 TIMEOUT     = 10
