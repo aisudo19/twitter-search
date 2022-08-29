@@ -19,8 +19,10 @@
 
     <main class="container">
         <form class="search_area" action="">
-            取得開始日(取得開始日付指定がなければ１ヶ月前から取得)：<input class="form-control" type="date" name="start_date" value="{{ start_date }}">
-            取得終了日(取得終了日付指定がなければ今日までを取得)：<input class="form-control" type="date" name="end_date" value="{{ end_date }}">
+            取得開始日(指定がなければ１ヶ月前から)：<input class="form-control" type="date" name="since_date" value="{{ since_date }}">
+            取得開始時刻(指定がなければ0時0分から)：<input class="form-control" type="time" name="since_time" value="{{ since_time }}">
+            取得終了日(指定がなければ今日まで)：<input class="form-control" type="date" name="until_date" value="{{ until_date }}">
+            取得終了時刻(指定がなければ23時59分まで)：<input class="form-control" type="time" name="until_time" value="{{ until_time }}">
             検索数(検索件数指定がなければ10件取得)：<input class="form-control" type="number" name="search_limit" value="{{ search_limit }}">
             検索キーワード（Enter)<input class="form-control" type="text" name="search_word" autofocus value="{{ search_word }}">
             <button type="submit">検索</button>

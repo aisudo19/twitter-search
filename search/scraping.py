@@ -10,7 +10,13 @@ TIMEOUT     = 10
 HEADER      = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'}
 
 #グーグル検索から検索結果のリストを返す関数
-def search_twitter(words, since_date, until_date, search_limit):
+def search_twitter(words, since_date, until_date, since_time, until_time, search_limit):
+    if(search_limit == ""):
+        search_limit = 10
+    if(since_date == ""):
+        since_date = datetime.date.today() - datetime.timedelta(days=31)
+        # print("since_date:" + str(since_date))
+    
     if(search_limit == ""):
         search_limit = 10
     if(since_date == ""):
@@ -18,11 +24,17 @@ def search_twitter(words, since_date, until_date, search_limit):
         # print("since_date:" + str(since_date))
     if(until_date == ""):
         until_date = datetime.date.today()
+    
+    if(since_time == ""):
+        since_time = "00:00:00"
+    if(until_time == ""):
+        until_time = "23:59:59"
+    print("since_time:" + since_time + " until_time:" + until_time)
     # print("since:" + str(since_date) + "_00:00:00_JST until:" + str(until_date) + "_23:59:59_JST lang:ja -filter:links -filter:replies")
     result_raw = []
     tweets_list = []
     # query = " since:" + str(since_date) + "_00:00:00_JST until:" + str(until_date) + "_23:59:59_JST lang:ja -filter:links -filter:replies"
-    query = " since:" + str(since_date) + "_00:00:00_JST until:" + str(until_date) + "_23:59:59_JST"
+    query = " since:" + str(since_date) + "_" + since_time + "_JST until:" + str(until_date) + "_" + until_time + "_JST"
     # print("query: " + words + query)
     try:
         result_raw = enumerate(sntwitter.TwitterSearchScraper(words + query).get_items())
